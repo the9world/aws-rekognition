@@ -12,7 +12,7 @@ class DetectResource (Resource):
     def post(self):
         # 이미지 파일을 Bytes로 변환 (S3 Bucket을 사용 안할 경우 필요함 form-data key 이름과 같아야함.)
         image_bytes = request.files['photo'].read()
-        # postman이 아닌 로컬에서 직접 파일을 지정할 경우 with open
+        # REST API(PostMan)을 사용하지 않고 로컬에서 직접 파일을 지정할 경우 with open
         # with open('path_to_your_local_photo.jpg', 'rb') as image_file:
         # image_bytes = image_file.read()
         
@@ -116,15 +116,20 @@ class ComepareResouece(Resource):
                     str(position['Top']) +
                     ' matches with ' + similarity + '% confidence')
                 
-                # 일치율이 90% 이하일 경우 'No Match'로 표시하고, 그 이상일 경우 'Match'로 표시
-                match_status = 'No Match' if faceMatch['Similarity'] < 90 else 'Match'
+                # 일치율이 95% 이하일 경우 'No Match'로 표시하고, 그 이상일 경우 'Match'로 표시
+                match_status = 'No Match' if faceMatch['Similarity'] < 95 else 'Match'
                 matching_result = {
                     'Position': position,
                     'Similarity': faceMatch['Similarity'],
                     'MatchStatus': match_status
                 }
                 matching_results.append(matching_result)
-            return matching_results
+                return matching_results
+        
+            if matching_results["MatchStatus"] == "No Match":
+                
+                return
+                
         
         except Exception as e:
             return {'result': 'fail', 'error': '사진 파일이 잘못 되었습니다.'}, 500
