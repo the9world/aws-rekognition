@@ -5,6 +5,7 @@ from flask_restful import  Api
 # AWS의 여러 서비스들을 이용할 수 있는 파이썬 라이브러리(boto3)
 import boto3
 from resources.rekognition import ComepareResouece, DetectResource
+from resources.tmap import TMapRoute
 
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ api = Api(app)
 
 api.add_resource( DetectResource ,  '/rekognition/detect')
 api.add_resource( ComepareResouece ,  '/rekognition/compare')
+api.add_resource( TMapRoute, '/tmap/route')
 
 if __name__ == '__main__':
     app.run()

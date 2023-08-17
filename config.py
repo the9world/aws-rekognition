@@ -8,6 +8,8 @@ class Config:
     aws_access_key_id = 'AKIA2IXGC34OMTAZ5PGN'
     aws_secret_access_key = '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'
 
+    tmap_app_key = 'EJPSDoRfRa4bBDeumYxzz1Vc26BmEQN269pPgD5f'
+    kakao_api_key = '6dde9fdafe00d9155d220b0f3f11bfa7'
     
     # # 버킷이름을 보안상 변수처리
     # S3_BUCKET = 'sibalnom'
